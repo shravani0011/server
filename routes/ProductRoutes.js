@@ -2,25 +2,25 @@ const router = require("express").Router();
 const Product = require("../model/Product");
 
 // CREATE
-router.post("/", async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
     const product = new Product(req.body);
     const saved = await product.save();
     res.json(saved);
   } catch (err) {
-    console.error('Error creating product:', err.message);
-    res.status(500).json({ error: 'Failed to create product' });
+    console.error("Error adding task:", err.message);
+    res.status(500).json({ error: "Failed to add task" });
   }
 });
 
 // READ
-router.get("/", async (req, res) => {
+router.get("/tasks", async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    const tasks = await Product.find();
+    res.json(tasks);
   } catch (err) {
-    console.error('Error fetching products:', err.message);
-    res.status(500).json({ error: 'Failed to fetch products' });
+    console.error("Error fetching tasks:", err.message);
+    res.status(500).json({ error: "Failed to fetch tasks" });
   }
 });
 
@@ -46,6 +46,6 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to delete product" });
   }
-}); 
+});
 
 module.exports = router;
